@@ -6,11 +6,6 @@ const confirmPasswordEl = document.querySelector('#confirmPassword');
 
 const form = document.querySelector('#register');
 
-form.addEventListener('submit', function (e) {
-    // empêche l'envoi
-    e.preventDefault();
-});
-
 // constante pour vérifier les différents champs
 
 const isRequired = value => value === '' ? false : true;
@@ -158,9 +153,6 @@ const checkConfirmPassword = () => {
 //  ajout d'un événement pour prévenir l'envoi du formulaire
 
 form.addEventListener('submit', function (e) {
-    // préviens l'envoi du formulaire
-    e.preventDefault();
-
     // check la validité des champs
     let isNomValid = checkNom(),
         isPrenomValid = checkPrenom(),
@@ -174,10 +166,11 @@ form.addEventListener('submit', function (e) {
         isPasswordValid &&
         isConfirmPasswordValid;
 
-    // envoi si le formulaire est valide
-    if (isFormValid) {
+    // préviens l'envoi du formulaire si il y a une erreur
+    if (isFormValid === false) {
+        e.preventDefault();
     }
-});
+}, true);
 
 // ajout d'un timer à l'événement input qui va suivre
 
@@ -211,7 +204,7 @@ form.addEventListener('input', debounce(function (e) {
         case 'password':
             checkPassword();
             break;
-        case 'confirm-password':
+        case 'confirmPassword':
             checkConfirmPassword();
             break;
     }
