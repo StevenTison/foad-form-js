@@ -166,11 +166,29 @@ form.addEventListener('submit', function (e) {
         isPasswordValid &&
         isConfirmPasswordValid;
 
+    let monNom = document.querySelector("#nom");
+    let monPrenom = document.querySelector("#prenom");
+    let monMail = document.querySelector("#email");
+    let monMdp = document.querySelector("#password");
+
+    let monObjet = {
+        nom: monNom.value,
+        prenom: monPrenom.value,
+        mail: monMail.value,
+        mdp: monMdp.value
+    };
+
+    localStorage.setItem("monObjet", JSON.stringify(monObjet));
+
+    localStorage.getItem("monObjet");
+
     // préviens l'envoi du formulaire si il y a une erreur
     if (isFormValid === false) {
         e.preventDefault();
     }
 }, true);
+
+
 
 // ajout d'un timer à l'événement input qui va suivre
 
@@ -209,3 +227,4 @@ form.addEventListener('input', debounce(function (e) {
             break;
     }
 }));
+
