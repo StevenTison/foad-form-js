@@ -1,8 +1,5 @@
 let monObjet = localStorage.getItem("monObjet");
 
-// var objUser=JSON.parse(user)
-//     console.log(objUser.nom);
-
 let objet = JSON.parse(monObjet);
 
 const div = document.createElement("div");
