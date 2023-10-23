@@ -1,12 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Se connecter</title>
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-    
+
+    <div class="container">
+        <form action="identification.html" method="GET" id="register" class="form">
+            <h1>Se connecter</h1>
+
+            <div class="form-field">
+                <label for="email">Email:</label>
+                <input type="text" name="email" id="email" autocomplete="off">
+                <small></small>
+            </div>
+
+            <div class="form-field">
+                <label for="password">Mot de passe :</label>
+                <input type="password" name="password" id="password" autocomplete="off">
+                <small></small>
+            </div>
+
+            <div class="form-field">
+                <input class="btn" type="submit" value="Se connecter">
+            </div>
+        </form>
+    </div>
+
     <script src="confirmation.js"></script>
 </body>
+
 </html>

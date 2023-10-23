@@ -1,27 +1,114 @@
 let monObjet = localStorage.getItem("monObjet");
-
 let objet = JSON.parse(monObjet);
 
-const div = document.createElement("div");
+const email = document.querySelector("#email");
+email.value = objet["mail"];
 
-const nom = document.createElement("p");
-const addNom = document.createTextNode(objet["nom"]);
-nom.append(addNom);
-div.append(nom);
+const mdp = document.querySelector("#password");
+mdp.value = objet["mdp"];
 
-const prenom = document.createElement("p");
-const addPrenom = document.createTextNode(objet["prenom"]);
-prenom.append(addPrenom);
-div.append(prenom);
+const form = document.querySelector("#register");
 
-const mail = document.createElement("p");
-const addMail = document.createTextNode(objet["mail"]);
-mail.append(addMail);
-div.append(mail);
+const showError = (input, message) => {
+    // prends l'élément form-field
+    const formField = input.parentElement;
+    // ajoute la classe error
+    formField.classList.remove('success');
+    formField.classList.add('erreur');
 
-const mdp = document.createElement("p");
-const addMdp = document.createTextNode(objet["mdp"]);
-mdp.append(addMdp);
-div.append(mdp);
+    // montre le message d'erreur
+    const error = formField.querySelector('small');
+    error.textContent = message;
+};
 
-document.body.append(div);
+const showSuccess = (input) => {
+    // prends l'élément form-field
+    const formField = input.parentElement;
+
+    // enlève la classe error
+    formField.classList.remove('erreur');
+    formField.classList.add('success');
+
+    // cache le message d'erreur
+    const error = formField.querySelector('small');
+    error.textContent = '';
+};
+
+// constante pour vérifier l'email
+
+const checkEmail = () => {
+
+    let valid = false;
+
+    if (email.value !== objet["mail"]) {
+        showError(email, "L'e-mail n'est pas bon.'");
+    } else {
+        showSuccess(email);
+        valid = true;
+    }
+    return valid;
+};
+
+// constante pour vérifier le mot de passe
+
+const checkPassword = () => {
+
+    let valid = false;
+
+    if (mdp.value !== objet["mdp"]) {
+        showError(mdp, "Le mot de passe n'est pas bon.");
+    } else {
+        showSuccess(mdp);
+        valid = true;
+    }
+    return valid;
+};
+
+form.addEventListener('submit', function (e) {
+    // check la validité des champs
+    let isEmailValid = checkEmail(),
+        isPasswordValid = checkPassword();
+
+    let isFormValid = isEmailValid &&
+        isPasswordValid;
+
+    let date = new Date();
+
+    let dateCo = date.toLocaleDateString();
+    let dateCo2 = date.toLocaleTimeString();
+    let dateJour = date.getDay();
+
+    if (dateJour === 0) {
+        dateJour = "Dimanche";
+        localStorage.setItem("monJour", dateJour);
+    } else if (dateJour === 1) {
+        dateJour = "Lundi";
+        localStorage.setItem("monJour", dateJour);
+    } else if (dateJour === 2) {
+        dateJour = "Mardi";
+        localStorage.setItem("monJour", dateJour);
+    } else if (dateJour === 3) {
+        dateJour = "Mercredi";
+        localStorage.setItem("monJour", dateJour);
+    } else if (dateJour === 4) {
+        dateJour = "Jeudi";
+        localStorage.setItem("monJour", dateJour);
+    } else if (dateJour === 5) {
+        dateJour = "Vendredi";
+        localStorage.setItem("monJour", dateJour);
+    } else if (dateJour === 6) {
+        dateJour = "Samedi";
+        localStorage.setItem("monJour", dateJour);
+    }
+
+    localStorage.setItem("maDate", dateCo);
+    localStorage.setItem("monHeure", dateCo2);
+
+
+
+    // préviens l'envoi du formulaire si il y a une erreur
+    if (isFormValid === false) {
+        e.preventDefault();
+    }
+}, true);
+
